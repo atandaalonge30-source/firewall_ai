@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page-title">Batch Upload</div>
+<div class="page-sub">Upload a CSV of traffic records to classify them all at once</div>
+
+<div class="card">
+  <form method="POST" enctype="multipart/form-data">
+    <div class="upload-box">
+      <p style="margin:0 0 10px; font-family:var(--mono); font-size:13px;">Expected columns: duration, protocol_type, service, src_bytes, dst_bytes, count, srv_count, serror_rate, same_srv_rate, dst_host_count</p>
+      <input type="file" name="csv_file" accept=".csv" style="max-width:320px; margin:0 auto;">
+    </div>
+    {% if error %}<div class="error-msg">{{ error }}</div>{% endif %}
+    <div style="margin-top:20px;">
+      <button class="btn" type="submit">Upload &amp; Classify</button>
+    </div>
+  </form>
+</div>
+
+<div class="section-title">Sample File</div>
+<div class="callout">Don't have a CSV handy? Use <code>data/traffic_data.csv</code> from the project folder, or export a subset of the public dataset used for training.</div>
+{% endblock %}

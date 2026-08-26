@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page-title">Analysis Results</div>
+<div class="page-sub">Classification output and recommended firewall action</div>
+
+{% if single %}
+  <div class="grid grid-2">
+    <div class="card">
+      <div class="metric-label">Classification</div>
+      <div class="metric-value {{ 'danger' if prediction=='malicious' else '' }}">{{ prediction|upper }}</div>
+      <div class="chip-row"><span class="chip">Confidence: {{ confidence }}%</span></div>
+    </div>
+    <div class="card">
+      <div class="metric-label">Recommended Rule</div>
+      <p style="font-family:var(--mono); font-size:14px; color: {{ 'var(--danger)' if rule.action=='DENY' else 'var(--accent)' }}; margin: 10px 0;">{{ rule.rule_text }}</p>
+      <span class="badge {{ 'deny' if rule.action=='DENY' else ('review' if 'REVIEW' in rule.action else 'allow') }}">{{ rule.action }}</span>
+    </div>
+  </div>
+  <div class="section-title">Reasoning</div>
+  <div class="callout {{ 'danger' if rule.action=='DENY' else '' }}">{{ rule.reason }}</div>
+
+{% else %}
+  <div class="card">
+    <table>
+      <tr><th>Src IP</th><th>Protocol</th><th>Service</th><th>Prediction</th><th>Confidence</th><th>Recommended Action</th></tr>
+      {% for item in batch %}
+      <tr>
+        <td>{{ item.rule.src_ip }}</td>
+        <td>{{ item.record.protocol_type }}</td>
+        <td>{{ item.record.service }}</td>
+        <td>{{ item.prediction|upper }}</td>
+        <td>{{ item.confidence }}%</td>
+        <td><span class="badge {{ 'deny' if item.rule.action=='DENY' else ('review' if 'REVIEW' in item.rule.action else 'allow') }}">{{ item.rule.action }}</span></td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+{% endif %}
+
+<div style="margin-top:22px;">
+  <a class="btn secondary" href="{{ url_for('rules') }}">View Full Rule Log</a>
+</div>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page-title">Rule Log</div>
+<div class="page-sub">All firewall rules recommended by the system this session</div>
+
+<div class="card">
+  {% if rules %}
+  <table>
+    <tr><th>Src IP</th><th>Protocol</th><th>Port</th><th>Rule</th><th>Action</th><th>Confidence</th><th>Severity</th></tr>
+    {% for r in rules %}
+    <tr>
+      <td>{{ r.src_ip }}</td>
+      <td>{{ r.protocol }}</td>
+      <td>{{ r.dst_port }}</td>
+      <td style="font-size:11.5px;">{{ r.rule_text }}</td>
+      <td><span class="badge {{ 'deny' if r.action=='DENY' else ('review' if 'REVIEW' in r.action else 'allow') }}">{{ r.action }}</span></td>
+      <td>{{ r.confidence }}%</td>
+      <td>{{ r.severity }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% else %}
+  <p style="color:var(--muted); font-size:13.5px;">No rules generated yet.</p>
+  {% endif %}
+</div>
+{% endblock %}

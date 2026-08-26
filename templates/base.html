@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Intelligent Firewall Rule Recommendation System{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">IF</div>
+        <div>
+          <div class="brand-name">IntelliFirewall</div>
+          <div class="brand-sub">ML RULE ENGINE</div>
+        </div>
+      </div>
+      <nav class="nav">
+        <a href="{{ url_for('dashboard') }}" class="{{ 'active' if request.endpoint=='dashboard' }}">&#9679; Dashboard</a>
+        <a href="{{ url_for('analyze') }}" class="{{ 'active' if request.endpoint=='analyze' }}">&#9654; Analyze Traffic</a>
+        <a href="{{ url_for('upload') }}" class="{{ 'active' if request.endpoint=='upload' }}">&#8593; Batch Upload</a>
+        <a href="{{ url_for('rules') }}" class="{{ 'active' if request.endpoint=='rules' }}">&#128274; Rule Log <span class="tag">{{ ruletotal if ruletotal is defined else '' }}</span></a>
+      </nav>
+    </aside>
+    <main class="main">
+      {% block content %}{% endblock %}
+    </main>
+  </div>
+</body>
+</html>

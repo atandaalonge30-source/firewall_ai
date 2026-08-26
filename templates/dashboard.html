@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page-title">Dashboard</div>
+<div class="page-sub">Model performance and live rule-recommendation activity</div>
+
+<div class="grid grid-4">
+  <div class="card">
+    <div class="metric-label">Accuracy</div>
+    <div class="metric-value">{{ (metrics.accuracy*100)|round(1) }}%</div>
+  </div>
+  <div class="card">
+    <div class="metric-label">Precision</div>
+    <div class="metric-value">{{ (metrics.precision*100)|round(1) }}%</div>
+  </div>
+  <div class="card">
+    <div class="metric-label">Recall</div>
+    <div class="metric-value">{{ (metrics.recall*100)|round(1) }}%</div>
+  </div>
+  <div class="card">
+    <div class="metric-label">F1-Score</div>
+    <div class="metric-value">{{ (metrics.f1_score*100)|round(1) }}%</div>
+  </div>
+</div>
+
+<div class="section-title">Rule Recommendation Activity</div>
+<div class="grid grid-4">
+  <div class="card">
+    <div class="metric-label">Total Rules Generated</div>
+    <div class="metric-value plain">{{ total_rules }}</div>
+  </div>
+  <div class="card">
+    <div class="metric-label">Deny Rules</div>
+    <div class="metric-value danger">{{ denied }}</div>
+  </div>
+  <div class="card">
+    <div class="metric-label">Allow Rules</div>
+    <div class="metric-value">{{ allowed }}</div>
+  </div>
+  <div class="card">
+    <div class="metric-label">Model Trained On</div>
+    <div class="metric-value plain" style="font-size:16px;">{{ metrics.train_size }} records</div>
+  </div>
+</div>
+
+<div class="section-title">Recent Recommendations</div>
+<div class="card">
+  {% if recent %}
+  <table>
+    <tr><th>Source IP</th><th>Protocol</th><th>Port</th><th>Action</th><th>Confidence</th><th>Severity</th></tr>
+    {% for r in recent %}
+    <tr>
+      <td>{{ r.src_ip }}</td>
+      <td>{{ r.protocol }}</td>
+      <td>{{ r.dst_port }}</td>
+      <td><span class="badge {{ 'deny' if r.action=='DENY' else ('review' if 'REVIEW' in r.action else 'allow') }}">{{ r.action }}</span></td>
+      <td>{{ r.confidence }}%</td>
+      <td>{{ r.severity }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% else %}
+  <p style="color:var(--muted); font-size:13.5px;">No traffic analyzed yet. Go to <a href="{{ url_for('analyze') }}" style="color:var(--accent);">Analyze Traffic</a> or <a href="{{ url_for('upload') }}" style="color:var(--accent);">Batch Upload</a> to get started.</p>
+  {% endif %}
+</div>
+{% endblock %}

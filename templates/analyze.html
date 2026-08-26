@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page-title">Analyze Traffic</div>
+<div class="page-sub">Enter a single traffic record's features to classify it and generate a rule recommendation</div>
+
+<div class="card">
+  <form method="POST">
+    <div class="grid grid-2">
+      <div class="field">
+        <label>Source IP (optional)</label>
+        <input type="text" name="src_ip" placeholder="e.g. 41.203.18.22">
+      </div>
+      <div class="field">
+        <label>Protocol Type</label>
+        <select name="protocol_type">
+          <option value="tcp">tcp</option>
+          <option value="udp">udp</option>
+          <option value="icmp">icmp</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Service</label>
+        <select name="service">
+          <option value="http">http</option>
+          <option value="ftp">ftp</option>
+          <option value="ftp_data">ftp_data</option>
+          <option value="smtp">smtp</option>
+          <option value="dns">dns</option>
+          <option value="ssh">ssh</option>
+          <option value="telnet">telnet</option>
+          <option value="private">private</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Duration (seconds)</label>
+        <input type="number" step="any" name="duration" value="12" required>
+      </div>
+      <div class="field">
+        <label>Source Bytes</label>
+        <input type="number" step="any" name="src_bytes" value="450" required>
+      </div>
+      <div class="field">
+        <label>Destination Bytes</label>
+        <input type="number" step="any" name="dst_bytes" value="1200" required>
+      </div>
+      <div class="field">
+        <label>Connection Count</label>
+        <input type="number" step="any" name="count" value="6" required>
+      </div>
+      <div class="field">
+        <label>Service Count (srv_count)</label>
+        <input type="number" step="any" name="srv_count" value="6" required>
+      </div>
+      <div class="field">
+        <label>SYN Error Rate (0-1)</label>
+        <input type="number" step="0.01" name="serror_rate" value="0.02" required>
+      </div>
+      <div class="field">
+        <label>Same Service Rate (0-1)</label>
+        <input type="number" step="0.01" name="same_srv_rate" value="0.85" required>
+      </div>
+      <div class="field">
+        <label>Destination Host Count</label>
+        <input type="number" step="any" name="dst_host_count" value="25" required>
+      </div>
+    </div>
+    <button class="btn" type="submit">Classify Traffic</button>
+  </form>
+</div>
+{% endblock %}
