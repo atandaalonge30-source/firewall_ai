@@ -1,0 +1,202 @@
+{
+  "dataset_rows": 38824,
+  "additional_real_training_examples": 12,
+  "additional_fake_training_examples": 13,
+  "data_profile": {
+    "source": "fake_real_news.csv",
+    "rows": 38824,
+    "rows_before_deduplication": 44895,
+    "class_counts": {
+      "fake": 17899,
+      "real": 20925
+    },
+    "class_percentages": {
+      "fake": 46.1,
+      "real": 53.9
+    },
+    "duplicate_texts_removed": 6071,
+    "conflicting_duplicate_groups_removed": 0,
+    "conflicting_duplicate_rows_removed": 0,
+    "median_characters": 2288,
+    "dataset_attribution": {
+      "name": "Fake and Real News Dataset",
+      "publisher": "Gilchrist (Hugging Face mirror)",
+      "source_url": "https://huggingface.co/datasets/haoxianc/gilchr_fake-and-real-news-dataset",
+      "license": "MIT (as stated by the dataset mirror)",
+      "accessed": "2026-10-13"
+    },
+    "preprocessing_summary": "Records were normalized and deduplicated before the stratified split to keep repeated normalized articles from crossing between splits.",
+    "preprocessing_steps": [
+      "Combine available title and article text.",
+      "Remove blank records and entries shorter than the configured minimum.",
+      "Normalize case, URLs, HTML, punctuation and whitespace for duplicate detection and feature extraction.",
+      "Remove duplicate normalized articles; discard all copies of any duplicate with conflicting labels.",
+      "Extract English-stop-word-filtered TF-IDF unigrams and bigrams."
+    ]
+  },
+  "splits": {
+    "train": 27201,
+    "validation": 5824,
+    "test": 5824
+  },
+  "feature_analysis": {
+    "fake": [
+      {
+        "term": "president trump",
+        "weight": -4.5227
+      },
+      {
+        "term": "hillary",
+        "weight": -4.5998
+      },
+      {
+        "term": "watch",
+        "weight": -4.6052
+      },
+      {
+        "term": "america",
+        "weight": -4.7151
+      },
+      {
+        "term": "obama",
+        "weight": -4.8276
+      },
+      {
+        "term": "gop",
+        "weight": -4.9884
+      },
+      {
+        "term": "read",
+        "weight": -5.4871
+      },
+      {
+        "term": "featured",
+        "weight": -6.004
+      },
+      {
+        "term": "featured image",
+        "weight": -6.0569
+      },
+      {
+        "term": "just",
+        "weight": -6.1798
+      },
+      {
+        "term": "image",
+        "weight": -6.2792
+      },
+      {
+        "term": "video",
+        "weight": -10.498
+      }
+    ],
+    "real": [
+      {
+        "term": "reuters",
+        "weight": 19.4114
+      },
+      {
+        "term": "said",
+        "weight": 11.5468
+      },
+      {
+        "term": "washington reuters",
+        "weight": 8.3388
+      },
+      {
+        "term": "washington",
+        "weight": 5.2939
+      },
+      {
+        "term": "president donald",
+        "weight": 5.0906
+      },
+      {
+        "term": "wednesday",
+        "weight": 4.7354
+      },
+      {
+        "term": "tuesday",
+        "weight": 4.5084
+      },
+      {
+        "term": "thursday",
+        "weight": 4.1581
+      },
+      {
+        "term": "reuters president",
+        "weight": 4.1349
+      },
+      {
+        "term": "monday",
+        "weight": 3.9586
+      },
+      {
+        "term": "minister",
+        "weight": 3.8336
+      },
+      {
+        "term": "friday",
+        "weight": 3.7128
+      }
+    ]
+  },
+  "test_errors": {
+    "fake_articles_missed": 39,
+    "real_articles_flagged_fake": 26,
+    "total": 65
+  },
+  "validation": {
+    "accuracy": 0.9888,
+    "fake": {
+      "precision": 0.9947,
+      "recall": 0.981,
+      "f1": 0.9878
+    },
+    "real": {
+      "precision": 0.9839,
+      "recall": 0.9955,
+      "f1": 0.9897
+    }
+  },
+  "test": {
+    "accuracy": 0.9888,
+    "fake": {
+      "precision": 0.9903,
+      "recall": 0.9855,
+      "f1": 0.9879
+    },
+    "real": {
+      "precision": 0.9876,
+      "recall": 0.9917,
+      "f1": 0.9897
+    }
+  },
+  "classification_report": {
+    "fake": {
+      "precision": 0.9902694610778443,
+      "recall": 0.9854748603351955,
+      "f1-score": 0.9878663431024828,
+      "support": 2685.0
+    },
+    "real": {
+      "precision": 0.9876269035532995,
+      "recall": 0.9917171073590315,
+      "f1-score": 0.9896677793673502,
+      "support": 3139.0
+    },
+    "accuracy": 0.9888392857142857,
+    "macro avg": {
+      "precision": 0.9889481823155719,
+      "recall": 0.9885959838471134,
+      "f1-score": 0.9887670612349164,
+      "support": 5824.0
+    },
+    "weighted avg": {
+      "precision": 0.9888451842801887,
+      "recall": 0.9888392857142857,
+      "f1-score": 0.98883727518274,
+      "support": 5824.0
+    }
+  }
+}
